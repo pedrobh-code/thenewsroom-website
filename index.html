@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Newsroom — Making Information Traceable</title>
+    <meta name="description" content="The Newsroom builds provenance tools for journalism and delivers AI training for newsrooms. Developed in partnership with the BBC and Stanford University.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink: #ed1072;
+            --teal: #2b7979;
+            --teal-light: #7bd3d2;
+            --dark: #1a1a1a;
+            --body: #3d3d3d;
+            --muted: #888;
+            --bg: #fcfcfa;
+            --card-bg: #f4f3f0;
+            --border: #e5e3de;
+            --font-display: 'Instrument Serif', serif;
+            --font-body: 'DM Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--dark);
+            background: var(--bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Header --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo svg {
+            height: 32px;
+            width: auto;
+        }
+
+        nav a {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--body);
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--pink);
+        }
+
+        /* --- Sections --- */
+        section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* --- Hero --- */
+        .hero {
+            padding-top: 10rem;
+            padding-bottom: 6rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.75rem, 6vw, 5rem);
+            font-weight: 400;
+            line-height: 1.1;
+            color: var(--dark);
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--pink);
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--body);
+            max-width: 580px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .divider {
+            width: 48px;
+            height: 3px;
+            background: var(--teal-light);
+            margin: 5rem auto;
+            border-radius: 2px;
+        }
+
+        /* --- Provenance --- */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 span {
+            color: var(--pink);
+        }
+
+        .section-header p {
+            font-size: 1rem;
+            color: var(--body);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .step {
+            background: var(--bg);
+            padding: 2rem 1.5rem;
+        }
+
+        .step-num {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--teal-light);
+            line-height: 1;
+            margin-bottom: 0.75rem;
+        }
+
+        .step h4 {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .step p {
+            font-size: 0.875rem;
+            color: var(--body);
+            line-height: 1.6;
+        }
+
+        /* --- Training --- */
+        .training-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+
+        .training-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+
+        .training-card h4 {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .training-card p {
+            font-size: 0.9rem;
+            color: var(--body);
+            line-height: 1.6;
+        }
+
+        /* --- Trusted --- */
+        .trusted {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+            text-align: center;
+        }
+
+        .trusted-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+            margin-bottom: 1.75rem;
+            font-weight: 500;
+        }
+
+        .org-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem 1.25rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .org-list span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--dark);
+            opacity: 0.35;
+            white-space: nowrap;
+        }
+
+        .org-list span::after {
+            content: '·';
+            margin-left: 1.25rem;
+            opacity: 0.4;
+        }
+
+        .org-list span:last-child::after {
+            content: '';
+            margin: 0;
+        }
+
+        /* --- Footer --- */
+        footer {
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-left {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .footer-left a {
+            color: var(--body);
+            text-decoration: none;
+        }
+
+        .footer-left a:hover {
+            color: var(--pink);
+        }
+
+        .footer-right {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--muted);
+        }
+
+        /* --- Animations --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.7s ease forwards;
+        }
+
+        .fade-in:nth-child(1) { animation-delay: 0s; }
+        .fade-in:nth-child(2) { animation-delay: 0.1s; }
+        .fade-in:nth-child(3) { animation-delay: 0.2s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .training-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 8rem;
+                padding-bottom: 4rem;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 0.75rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <a href="/" class="logo">
+            <svg width="180" height="45" viewBox="0 0 667 167" xmlns="http://www.w3.org/2000/svg" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                <g><rect x="0" y="122.917" width="41.667" height="43.75" style="fill:#7bd3d2;"/><rect x="0" y="81.25" width="41.667" height="43.75" style="fill:#4ec1bb;"/><rect x="0" y="39.583" width="41.667" height="43.75" style="fill:#59c59a;"/><rect x="0" y="0" width="43.75" height="41.667" style="fill:#2b7979;"/><path d="M94.885,41.667c16.53,0 30.115,13.345 30.115,29.807l0,13.943l41.667,0c0,-45.834 -39.588,-85.417 -85.417,-85.417l0,41.667l13.635,0Z" style="fill:#f14e26;"/><rect x="41.667" y="0" width="41.667" height="41.667" style="fill:#f6b419;"/><rect x="83.333" y="125" width="43.75" height="41.667" style="fill:#7a1d8d;"/><rect x="125" y="122.917" width="41.667" height="43.75" style="fill:#ed1072;"/><rect x="125" y="83.333" width="41.667" height="41.667" style="fill:#ee2333;"/></g>
+                <path d="M410.11,144.141c-5.04,0 -9.313,-0.849 -12.818,-2.548c-3.506,-1.753 -6.492,-3.998 -8.957,-6.738l8.217,-8.299c3.889,4.383 8.683,6.574 14.38,6.574c3.068,0 5.341,-0.63 6.818,-1.89c1.479,-1.26 2.221,-2.931 2.221,-5.013c0,-1.588 -0.438,-2.903 -1.317,-3.944c-0.875,-1.095 -2.655,-1.835 -5.339,-2.218l-5.67,-0.74c-6.08,-0.767 -10.545,-2.602 -13.394,-5.505c-2.794,-2.903 -4.191,-6.765 -4.191,-11.586c0,-2.575 0.494,-4.93 1.48,-7.067c0.986,-2.136 2.382,-3.972 4.19,-5.505c1.863,-1.534 4.109,-2.712 6.738,-3.534c2.684,-0.876 5.725,-1.314 9.121,-1.314c4.328,0 8.136,0.684 11.423,2.054c3.284,1.369 6.109,3.369 8.463,5.998l-8.3,8.382c-1.371,-1.589 -3.042,-2.876 -5.013,-3.862c-1.917,-1.041 -4.354,-1.561 -7.312,-1.561c-2.794,0 -4.876,0.492 -6.245,1.479c-1.37,0.986 -2.055,2.355 -2.055,4.108c0,1.972 0.521,3.396 1.562,4.273c1.095,0.877 2.848,1.506 5.258,1.89l5.67,0.904c5.918,0.931 10.297,2.766 13.147,5.505c2.85,2.684 4.271,6.519 4.271,11.504c0,2.739 -0.491,5.259 -1.475,7.56c-0.987,2.3 -2.441,4.272 -4.358,5.916c-1.863,1.643 -4.188,2.931 -6.983,3.862c-2.792,0.876 -5.971,1.315 -9.532,1.315Zm-172.205,-0.986l-21.2,-38.62l-0.246,0l0,38.62l-11.751,0l0,-57.355l13.641,0l21.199,38.62l0.247,0l0,-38.62l11.75,0l0,57.355l-13.64,0Zm25.443,0l0,-57.355l39.03,0l0,11.093l-26.541,0l0,11.75l22.762,0l0,11.011l-22.762,0l0,12.408l26.541,0l0,11.093l-39.03,0Zm45.146,-57.355l12.983,57.355l14.297,0l10.107,-43.633l0.247,0l10.024,43.633l14.216,0l13.312,-57.355l-11.833,0l-8.546,43.468l-0.246,0l-9.943,-43.468l-13.64,0l-9.942,43.468l-0.247,0l-8.464,-43.468l-12.325,0Zm133.502,57.355l12.487,0l0,-21.036l8.959,0l10.025,21.036l13.887,0l-11.258,-22.515c3.504,-1.315 6.108,-3.424 7.804,-6.327c1.754,-2.903 2.629,-6.3 2.629,-10.189c0,-2.739 -0.408,-5.232 -1.233,-7.478c-0.821,-2.246 -1.996,-4.163 -3.534,-5.752c-1.475,-1.643 -3.283,-2.903 -5.42,-3.779c-2.138,-0.877 -4.521,-1.315 -7.15,-1.315l-27.196,0l0,57.355Zm29.991,-32.95c-1.041,0.931 -2.495,1.396 -4.354,1.396l-13.15,0l0,-14.955l13.15,0c1.859,0 3.313,0.493 4.354,1.479c1.096,0.932 1.642,2.329 1.642,4.191l0,3.616c0,1.862 -0.546,3.286 -1.642,4.273Zm46.759,33.936c-3.779,0 -7.229,-0.63 -10.354,-1.89c-3.121,-1.26 -5.78,-3.123 -7.971,-5.588c-2.192,-2.52 -3.888,-5.615 -5.092,-9.285c-1.208,-3.725 -1.808,-8.026 -1.808,-12.901c0,-4.875 0.6,-9.148 1.808,-12.818c1.204,-3.725 2.9,-6.821 5.092,-9.286c2.191,-2.519 4.85,-4.409 7.971,-5.669c3.125,-1.26 6.575,-1.89 10.354,-1.89c3.779,0 7.233,0.63 10.354,1.89c3.121,1.26 5.779,3.15 7.971,5.669c2.191,2.465 3.887,5.561 5.096,9.286c1.204,3.67 1.804,7.943 1.804,12.818c0,4.875 -0.6,9.176 -1.804,12.901c-1.209,3.67 -2.905,6.765 -5.096,9.285c-2.192,2.465 -4.85,4.328 -7.971,5.588c-3.121,1.26 -6.575,1.89 -10.354,1.89Zm0,-11.093c3.779,0 6.712,-1.233 8.791,-3.698c2.138,-2.465 3.205,-5.998 3.205,-10.6l0,-8.545c0,-4.602 -1.067,-8.135 -3.205,-10.6c-2.079,-2.466 -5.012,-3.698 -8.791,-3.698c-3.779,0 -6.738,1.232 -8.875,3.698c-2.079,2.465 -3.121,5.998 -3.121,10.6l0,8.545c0,4.602 1.042,8.135 3.121,10.6c2.137,2.465 5.096,3.698 8.875,3.698Zm47.483,9.203c3.125,1.26 6.575,1.89 10.354,1.89c3.779,0 7.229,-0.63 10.354,-1.89c3.121,-1.26 5.78,-3.123 7.971,-5.588c2.192,-2.52 3.888,-5.615 5.092,-9.285c1.208,-3.725 1.808,-8.026 1.808,-12.901c0,-4.875 -0.6,-9.148 -1.808,-12.818c-1.204,-3.725 -2.9,-6.821 -5.092,-9.286c-2.191,-2.519 -4.85,-4.409 -7.971,-5.669c-3.125,-1.26 -6.575,-1.89 -10.354,-1.89c-3.779,0 -7.229,0.63 -10.354,1.89c-3.121,1.26 -5.779,3.15 -7.971,5.669c-2.191,2.465 -3.887,5.561 -5.091,9.286c-1.209,3.67 -1.809,7.943 -1.809,12.818c0,4.875 0.6,9.176 1.809,12.901c1.204,3.67 2.9,6.765 5.091,9.285c2.192,2.465 4.85,4.328 7.971,5.588Zm19.146,-12.901c-2.083,2.465 -5.013,3.698 -8.792,3.698c-3.779,0 -6.737,-1.233 -8.875,-3.698c-2.079,-2.465 -3.121,-5.998 -3.121,-10.6l0,-8.545c0,-4.602 1.042,-8.135 3.121,-10.6c2.138,-2.466 5.096,-3.698 8.875,-3.698c3.779,0 6.709,1.232 8.792,3.698c2.137,2.465 3.204,5.998 3.204,10.6l0,8.545c0,4.602 -1.067,8.135 -3.204,10.6Zm68.929,-23.83l-0.246,0l-15.366,28.678l-15.284,-29.253l-0.246,0l0,38.21l-11.75,0l0,-57.355l13.23,0l14.05,26.87l0.166,0l13.888,-26.87l13.308,0l0,57.355l-11.75,0l0,-37.635Zm-439.969,-73.775l0,40.787l-5.49,0l0,-40.787l-14.511,0l0,-4.837l34.512,0l0,4.837l-14.511,0Zm50.608,20.132l-23.073,0l0,20.655l-5.49,0l0,-45.624l5.49,0l0,20.132l23.073,0l0,-20.132l5.491,0l0,45.624l-5.491,0l0,-20.655Zm17.65,-24.969l0,45.624l27.845,0l0,-4.837l-22.354,0l0,-15.818l21.047,0l0,-4.837l-21.047,0l0,-15.295l22.354,0l0,-4.837l-27.845,0Z" style="fill:#2d3b3a;"/>
+            </svg>
+        </a>
+        <nav>
+            <a href="#provenance">Provenance</a>
+            <a href="#training">Training</a>
+            <a href="mailto:info@thenewsroom.ai">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <h1 class="fade-in">Making information <em>traceable.</em></h1>
+    <p class="fade-in">We build provenance tools for journalism and deliver AI training for newsrooms — helping media organisations build trust with their audiences through transparency and technology.</p>
+</section>
+
+<div class="divider"></div>
+
+<section id="provenance">
+    <div class="section-header">
+        <h2>Information <span>Provenance</span></h2>
+        <p>Content Credentials let audiences verify where digital content comes from. They already exist for images and video. We're building the first implementation for text, developed with the BBC and Stanford University.</p>
+    </div>
+    <div class="steps">
+        <div class="step">
+            <div class="step-num">1</div>
+            <h4>Extract</h4>
+            <p>AI identifies claims from canonical sources like government press releases.</p>
+        </div>
+        <div class="step">
+            <div class="step-num">2</div>
+            <h4>Match</h4>
+            <p>Statements in an article are linked to the original claim, even when the wording differs.</p>
+        </div>
+        <div class="step">
+            <div class="step-num">3</div>
+            <h4>Sign</h4>
+            <p>A tamper-evident manifest is created, cryptographically binding both together.</p>
+        </div>
+        <div class="step">
+            <div class="step-num">4</div>
+            <h4>Embed</h4>
+            <p>A verifiable credential sits inside the article for anyone to inspect.</p>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="training">
+    <div class="section-header">
+        <h2>AI Training <span>for Newsrooms</span></h2>
+        <p>We work with media organisations to build real AI capability across their teams, from editorial leadership to technical staff.</p>
+    </div>
+    <div class="training-grid">
+        <div class="training-card">
+            <h4>AI Fundamentals</h4>
+            <p>How AI works, what it can and can't do, and what it means for journalism. No hype, no jargon.</p>
+        </div>
+        <div class="training-card">
+            <h4>Workflow Mapping & Test Beds</h4>
+            <p>Map existing processes, identify where AI adds value, and design focused experiments to test it.</p>
+        </div>
+        <div class="training-card">
+            <h4>Newsroom Leadership</h4>
+            <p>For editors and leaders: understanding risk, setting guidelines, and making informed decisions about AI adoption.</p>
+        </div>
+        <div class="training-card">
+            <h4>Technical Innovation</h4>
+            <p>For teams ready to build: vibe coding, prototyping with Python, and developing working test beds using AI tools.</p>
+        </div>
+    </div>
+</section>
+
+<section class="trusted">
+    <p class="trusted-label">We've worked with people from</p>
+    <div class="org-list">
+        <span>BBC</span>
+        <span>Stanford University</span>
+        <span>Carbon Brief</span>
+        <span>Washington Post</span>
+        <span>NPR</span>
+        <span>London School of Economics</span>
+        <span>CBC</span>
+        <span>Correctiv</span>
+        <span>Poynter</span>
+        <span>Al Jazeera</span>
+        <span>Media Capital</span>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-left">
+            © 2026 The Newsroom · <a href="mailto:info@thenewsroom.ai">info@thenewsroom.ai</a>
+        </div>
+        <div class="footer-right">Making information traceable.</div>
+    </div>
+</footer>
+
+</body>
+</html>
