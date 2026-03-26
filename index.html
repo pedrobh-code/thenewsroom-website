@@ -217,9 +217,10 @@
 
         /* --- Trusted --- */
         .trusted {
-            padding-top: 5rem;
-            padding-bottom: 5rem;
+            max-width: 100%;
+            padding: 5rem 0;
             text-align: center;
+            overflow: hidden;
         }
 
         .trusted-label {
@@ -231,32 +232,34 @@
             font-weight: 500;
         }
 
-        .org-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.5rem 1.25rem;
-            max-width: 700px;
-            margin: 0 auto;
+        .marquee-wrap {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
 
-        .org-list span {
-            font-size: 0.9rem;
+        .marquee {
+            display: flex;
+            gap: 3rem;
+            animation: scroll 35s linear infinite;
+            width: max-content;
+        }
+
+        .marquee span {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
             font-weight: 500;
             color: var(--dark);
             opacity: 0.35;
             white-space: nowrap;
+            flex-shrink: 0;
         }
 
-        .org-list span::after {
-            content: '·';
-            margin-left: 1.25rem;
-            opacity: 0.4;
-        }
-
-        .org-list span:last-child::after {
-            content: '';
-            margin: 0;
+        @keyframes scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
         }
 
         /* --- Footer --- */
@@ -413,7 +416,7 @@
             <p>How AI works, what it can and can't do, and what it means for journalism. No hype, no jargon.</p>
         </div>
         <div class="training-card">
-            <h4>Workflow Mapping & Test Beds</h4>
+            <h4>Workflow Mapping &amp; Test Beds</h4>
             <p>Map existing processes, identify where AI adds value, and design focused experiments to test it.</p>
         </div>
         <div class="training-card">
@@ -428,26 +431,19 @@
 </section>
 
 <section class="trusted">
-    <p class="trusted-label">We've worked with people from</p>
-    <div class="org-list">
-        <span>BBC</span>
-        <span>Stanford University</span>
-        <span>Carbon Brief</span>
-        <span>Washington Post</span>
-        <span>NPR</span>
-        <span>London School of Economics</span>
-        <span>CBC</span>
-        <span>Correctiv</span>
-        <span>Poynter</span>
-        <span>Al Jazeera</span>
-        <span>Media Capital</span>
+    <p class="trusted-label">We've worked with professionals from</p>
+    <div class="marquee-wrap">
+        <div class="marquee">
+            <span>BBC</span><span>Stanford University</span><span>Carbon Brief</span><span>Washington Post</span><span>NPR</span><span>London School of Economics</span><span>CBC</span><span>Correctiv</span><span>Poynter</span><span>Al Jazeera</span><span>Media Capital</span>
+            <span>BBC</span><span>Stanford University</span><span>Carbon Brief</span><span>Washington Post</span><span>NPR</span><span>London School of Economics</span><span>CBC</span><span>Correctiv</span><span>Poynter</span><span>Al Jazeera</span><span>Media Capital</span>
+        </div>
     </div>
 </section>
 
 <footer>
     <div class="footer-inner">
         <div class="footer-left">
-            © 2026 The Newsroom · <a href="mailto:info@thenewsroom.ai">info@thenewsroom.ai</a>
+            &copy; 2026 The Newsroom &middot; <a href="mailto:info@thenewsroom.ai">info@thenewsroom.ai</a>
         </div>
         <div class="footer-right">Making information traceable.</div>
     </div>
